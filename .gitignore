@@ -58,3 +58,5 @@ typings/
 .env
 
 /.idea/misc.xml
+
+.DS_Store
