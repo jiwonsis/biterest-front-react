@@ -2,22 +2,21 @@
 
 .page {
   header {
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 50;
-    width: 100%;
   }
 
   .content {
-    padding-top: 3.5rem;
-    &.has-header {
+    &.padding {
       padding-top: 3.5rem;
     }
     &.responsive {
       padding-left: 1rem;
-      padding-right:  1rem;
-      @include repsonsive();
+      padding-right: 1rem;
+      @include responsive();
     }
   }
 }

@@ -1,16 +1,20 @@
 import React from 'react';
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
-import { Logo } from 'components';
+import { Logo, HeaderNav, Button } from 'components';
 
 const cx = classNames.bind(styles);
 
 const Header = () => {
   return (
     <div className={cx('header')}>
-      <div className={cx('response')}>
+      <div className={cx('responsive')}>
         <div className={cx('logo-wrapper')}>
-          <Logo />
+          <Logo/>
+        </div>
+        <div className={cx('right-side')}>
+          <HeaderNav/>
+          <Button invert className={cx('login-button')}>로그인</Button>
         </div>
       </div>
     </div>
