@@ -1,4 +1,4 @@
-'use strict';
+
 
 const autoprefixer = require('autoprefixer');
 const path = require('path');
@@ -253,8 +253,11 @@ module.exports = {
                           }),
                         ],
                       },
-                      {
-                        loader: require.resolve('sass-loader')
+                    },
+                    {
+                      loader: require.resolve('sass-loader'),
+                      options: {
+                        includePaths: [paths.globalStyles]
                       },
                     },
                   ],
