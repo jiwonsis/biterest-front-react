@@ -3,4 +3,9 @@ $breakpoints: (
   medium: 764px,
   large: 1024px,
   huge: 1200px
-)
+);
+
+$z-indexes: (
+  'header': 5,
+  'screenMask': 20
+);
