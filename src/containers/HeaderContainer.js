@@ -14,7 +14,8 @@ class HeaderContainer extends Component {
     const { handleLoginButtonClick } = this;
 
     return (
-      <Header onLoginButtonClick={handleLoginButtonClick} />
+      <Header 
+        onLoginButtonClick={handleLoginButtonClick} />
     );
   }
 }

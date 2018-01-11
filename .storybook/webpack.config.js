@@ -18,24 +18,31 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-              module: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
-            },
-          },
-          {
-            loader: require.resolve('sass-loader'),
-            options: {
-              includePaths: [paths.globalStyles],
-            },
-          },
-        ],
-      },
-    ],
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        include: path.resolve(__dirname, '../')
+      }
+    ]
+    // rules: [
+    //   {
+    //     test: /\.scss$/,
+    //     use: [
+    //       require.resolve('style-loader'),
+    //       {
+    //         loader: require.resolve('css-loader'),
+    //         options: {
+    //           importLoaders: 1,
+    //           module: true,
+    //           localIdentName: '[name]__[local]__[hash:base64:5]'
+    //         },
+    //       },
+    //       {
+    //         loader: require.resolve('sass-loader'),
+    //         options: {
+    //           includePaths: [paths.globalStyles],
+    //         },
+    //       },
+    //     ],
+    //   },
+    // ],
   },
 };

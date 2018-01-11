@@ -41,9 +41,11 @@
     "react": "^16.2.0",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0-beta.13",
+    "react-icons": "^2.2.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-transition-group": "1^",
+    "react-transition-group": "^1.1.2",
     "redux-actions": "^2.2.1",
     "redux-pender": "^1.1.15",
     "sass-material-colors": "^0.0.5",
@@ -99,6 +101,9 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "react-hot-loader/babel"
     ]
   },
   "eslintConfig": {
