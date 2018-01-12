@@ -12,8 +12,6 @@ import { withRouter } from 'react-router'
 
 class LoginModalContainer extends Component {
   handleClose = () => {
-    console.log('handleClickOutside')
-    
     const { visible, BaseActions, AuthActions } = this.props;
     if(!visible) return;
     BaseActions.setScreenMaskVisibility(false);

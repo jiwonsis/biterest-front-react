@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from './SelectCurrency.scss';
 import classNames from 'classnames/bind';
+import { initialCurrencies } from 'lib/variables';
+
+const currencies = initialCurrencies;
 
 const cx = classNames.bind(styles);
 
-const Currency = ({children, active, symbol}) => {
+const Currency = ({children, active, symbol, onClick}) => {
   return (
-    <div className={cx('currency', {active})}>
+    <div className={cx('currency', {active})} onClick={onClick}>
       <div className={cx('symbol')}>
         {symbol}
       </div>
@@ -17,12 +20,19 @@ const Currency = ({children, active, symbol}) => {
   );
 };
 
-const SelectCurrency = ({selectedCurrency}) => {
+const SelectCurrency = ({currency, onSetCurrency}) => {
+  const currencyList = currencies.map(
+    c =>
+      <Currency
+        active={currency === c.name}
+        onClick={() => onSetCurrency(c.name)}
+        key={c.name}>
+        {c.name}
+      </Currency>
+  )
   return (
     <div className={cx('select-currency')}>
-      <Currency symbol="₩" active>KRW</Currency>
-      <Currency symbol="$">USD</Currency>
-      <Currency symbol="Ƀ">BTC</Currency>
+      {currencyList}
     </div>
   );
 };
