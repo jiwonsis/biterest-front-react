@@ -21,8 +21,7 @@ const LoginModal = ({
 
   const {
     email,
-    password,
-    displayName
+    password
   } = forms.toJS();
 
   const {
