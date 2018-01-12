@@ -33,6 +33,7 @@
     "immutable": "^3.8.2",
     "include-media": "^1.4.9",
     "jest": "20.0.4",
+    "lodash": "^4.17.4",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -42,12 +43,13 @@
     "react": "^16.2.0",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.2.0",
-    "react-hot-loader": "^4.0.0-beta.13",
+    "react-hot-loader": "3.0.0-beta.7",
     "react-icons": "^2.2.7",
     "react-onclickoutside": "^6.7.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^1.1.2",
+    "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-pender": "^1.1.15",
     "sass-material-colors": "^0.0.5",
@@ -104,9 +106,6 @@
   "babel": {
     "presets": [
       "react-app"
-    ],
-    "plugins": [
-      "react-hot-loader/babel"
     ]
   },
   "eslintConfig": {
@@ -119,5 +118,5 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6"
   },
-  "proxy" : "http://localhost:4000/"
+  "proxy": "http://localhost:4000/"
 }
