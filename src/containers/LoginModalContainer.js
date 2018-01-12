@@ -6,10 +6,12 @@ import { LoginModal } from 'components';
 import onClickOutside from 'react-onclickoutside';
 import * as baseActions from 'store/modules/base';
 import * as authActions from 'store/modules/auth';
+import * as registerActions from 'store/modules/register';
+
 import validate from 'validate.js';
 
 class LoginModalContainer extends Component {
-  handleClickOutside = () => {
+  handleClose = () => {
     console.log('handleClickOutside')
     
     const { visible, BaseActions, AuthActions } = this.props;
@@ -17,11 +19,17 @@ class LoginModalContainer extends Component {
     BaseActions.setScreenMaskVisibility(false);
     AuthActions.toggleLoginModal(); 
   }
+
+  handleClickOutside = () => {
+    this.handleClose();
+  }
+
   handleChangeMode = () => {
     const { mode, AuthActions } = this.props;
     const inverted = mode === 'login' ? 'register' : 'login';
     AuthActions.setModalMode(inverted);
   }
+
   handleChangeInput = (e) => {
     const { AuthActions } = this.props;
     const { name, value } = e.target;
@@ -30,21 +38,27 @@ class LoginModalContainer extends Component {
       value
     });
   }
+  
   handleLogin = () => {
-    console.log('로그인 검사해');
+    console.log('로그인 해!');
   }
-  handleRegister = () => {
+
+  handleRegister = async () => {
+    const { AuthActions, RegisterActions } = this.props;
+    // reset error
+    AuthActions.setError(null);
+
     // validate email and password
     const constraints = {
       email: {
         email: {
-          message: () => '^잘못된 형식의 이메일 입니다.'
+          message: () => `^잘못된 형식의 이메일 입니다.`
         }
       },
       password: {
         length: {
-          mininum: 6,
-          tooShort: '비밀번호는 최소 %{mininum}자 이상 입력하세요.'
+          minimum: 6,
+          tooShort: '^비밀번호는 최소 %{count}자 이상 입력하세요.'
         }
       }
     }
@@ -52,10 +66,21 @@ class LoginModalContainer extends Component {
     const form = this.props.form.toJS();
     const error = validate(form, constraints);
 
-    const { AuthActions } = this.props;
     if(error) {
-      AuthActions.setError(error);
+      return AuthActions.setError(error);
     }
+
+    try {
+      await AuthActions.checkEmail(form.email);
+    } catch (error) {
+      if(this.props.error) {
+        return;
+      }
+    }
+
+      // close modal, open the register screen
+      this.handleClose();
+      RegisterActions.show(); 
   }
   
   render() {
@@ -91,6 +116,7 @@ export default connect(
   }),
   (dispatch) => ({
     BaseActions: bindActionCreators(baseActions, dispatch),
-    AuthActions: bindActionCreators(authActions, dispatch)
+    AuthActions: bindActionCreators(authActions, dispatch),
+    RegisterActions: bindActionCreators(registerActions, dispatch)
   })
 )(onClickOutside(LoginModalContainer));

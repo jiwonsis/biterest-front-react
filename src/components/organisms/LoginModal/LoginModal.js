@@ -30,6 +30,8 @@ const LoginModal = ({
     password: passwordError,
   } = error ? error.toJS() : { };
 
+  const onButtonClick = isLogin ? onLogin : onRegister;
+
   return (
     <Modal visible={visible}>
       <div className={cx('login-modal')}>
@@ -53,16 +55,15 @@ const LoginModal = ({
               placeholder="비밀번호"
               type="password" />
             <InputError error={passwordError} />
-            { mode === 'register' && (
-              <Input 
-                value={displayName}
-                onChange={onChangeInput}
-                name='displayName'
-                fullWidth big
-                placeholder="닉네임" />
-            )}
           </div>
-          <Button flat color="teal" flex padding="0.6rem" className={cx('login')}>{modeText}</Button>
+          <Button 
+            flat color="teal"
+            flex padding="0.6rem"
+            className={cx('login')}
+            onClick={onButtonClick}
+          >
+            {modeText}
+          </Button>
 
           <div className={cx('login-foot')}>
             <TextButton>비밀번호 찾기</TextButton>
