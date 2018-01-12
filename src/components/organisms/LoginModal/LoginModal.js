@@ -16,8 +16,8 @@ const LoginModal = ({
   onRegister
 }) => {
   const isLogin = mode === 'login';
-  const modeText = isLogin === 'login' ? '로그인' : '회원가입';
-  const invertedText = isLogin === 'login' ? '회원가입' : '로그인';
+  const modeText = isLogin ? '로그인' : '회원가입';
+  const invertedText = isLogin ? '회원가입' : '로그인';
 
   const {
     email,
