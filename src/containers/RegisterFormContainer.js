@@ -37,11 +37,17 @@ class RegisterFormContainer extends Component {
   }
 
   handleSubmit = () => {
-    const { nickName, currency, optionIndex, authForm, RegisterActions } = this.props;
+
+    const { nickname, currency, optionIndex, authForm, RegisterActions } = this.props;
     const { email, password } = authForm.toJS();
 
+    if(nickname.length < 1) {
+      RegisterActions.setError('닉네임을 입력하세요');
+      return;
+    }
+
     RegisterActions.submit({
-      displayName: nickName,
+      displayName: nickname,
       email,
       password,
       initialMoney: {
@@ -54,7 +60,7 @@ class RegisterFormContainer extends Component {
 
   render() {
 
-    const { nickName, currency, optionIndex, displayNameExists } = this.props;
+    const { nickname, currency, optionIndex, displayNameExists, error } = this.props;
     const {
       handleChangeNickName,
       handleSetCurrency,
@@ -64,10 +70,11 @@ class RegisterFormContainer extends Component {
     } = this;
     return (
       <RegisterForm
-        nickName={nickName}
+        nickname={nickname}
         currency={currency}
         optionIndex={optionIndex}
         displayNameExists={displayNameExists}
+        error={error}
         onChangeNickname={handleChangeNickName}
         onSetCurrency={handleSetCurrency}
         onSelectOptionIndex={handleSelectOptionIndex}
@@ -80,10 +87,11 @@ class RegisterFormContainer extends Component {
 export default connect(
   (state) => ({
     authForm: state.auth.get('form'),
-    nickName: state.register.get('nickname'),
+    nickname: state.register.get('nickname'),
     currency: state.register.get('currency'),
     optionIndex: state.register.get('optionIndex'),
-    displayNameExists: state.register.get('displayNameExists')
+    displayNameExists: state.register.get('displayNameExists'),
+    error: state.register.get('error')
   }),
   (dispatch) => ({
     RegisterActions: bindActionCreators(registerActions, dispatch)

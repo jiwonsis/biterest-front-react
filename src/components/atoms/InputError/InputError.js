@@ -4,11 +4,13 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const InputError = ({child, error, ...rest}) => {
+const InputError = ({child, error, noMarginTop, ...rest}) => {
   if(!error) return null;
 
   return (
-    <div className={cx('input-error')} {...rest}>
+    <div className={cx('input-error', {
+      'no-margin-top': noMarginTop
+    })} {...rest}>
       {error}
     </div>
   );
