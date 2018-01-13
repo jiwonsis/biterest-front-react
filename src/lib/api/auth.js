@@ -16,16 +16,12 @@ export const localRegister = ({
   password,
   initialMoney: { currency, index }
 }) => {
-  console.log({displayName,
-    email,
-    password,
-    initialMoney: { currency, index }});
   return (
     axios.post('/api/v1.0/auth/register/local', {
       displayName,
       email,
       password,
-      // initialMoney: { currency, index }
+      initialMoney: { currency, index }
     })
   )
 }
