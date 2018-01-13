@@ -25,7 +25,8 @@ const initialState = Map({
   currency: 'KRW',
   optionIndex: 0,
   displayNameExists: false,
-  error: null
+  error: null,
+  result: null
 });
 
 // reducer
@@ -52,7 +53,25 @@ export default handleActions({
   ...pender({
     type: SUBMIT,
     onSuccess: (state, action) => {
+      const { data: user } = action.payload;
+      return state.set('result', user);
+    },
+    onFailure: (state, action) => {
+      // const { status, data: { key } } = 
+      console.log('00000000000')
+      console.log(action.payload.response.data);
       return state;
+      // const handler = {
+      //   displayName: () => {
+      //     return status.set('displayNameExists', false);
+      //   },
+      //   email: () => {
+      //     return status.set('redo', true);
+      //   }
+      // };
+
+      // if(status === 409 && key ) return handler(key);
+      // return state;
     }
   }),
   [SET_ERROR]: (state, action) => {

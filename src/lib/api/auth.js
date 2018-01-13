@@ -38,3 +38,16 @@ export const localLogin = ({
       })
     )
 };
+
+export const checkLoginStatus = () => {
+  let api = '/api/v1.0/auth/check';
+  return axios.get(api);
+}
+
+export const logout = () => {
+  let api = '/api/v1.0/auth/logout';
+  return axios.post(api);
+}
+
+// temporary logout caller
+window.logout = logout;
