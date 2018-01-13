@@ -1,28 +1,28 @@
-// 로컬 스토리지에 JSON 포맷으로 저장/불러오기/삭제 헬퍼 클래스
-const storage = { };
+export default (function() {
+  const storage = localStorage || { };
+  return {
+    set(key, object) {
+      storage[key] = (typeof object) === "string" ? object : JSON.stringify(object);
+    },
+    get: (key) => {
+      if(!storage[key]) {
+        return null;
+      }
+      const value = storage[key];
 
-storage.set = (key, object) => {
-  if(!localStorage) return;
-  localStorage[key] = (typeof object) === "string" ? object : JSON.stringify(object);
-}
+      try {
+        const parsed = JSON.parse(value);
+        return parsed;
+      } catch (e) {
+        return value;
+      }
+    },
+    remove: (key) => {
+      if(localStorage) {
+        return localStorage.removeItem(key);
+      }
 
-storage.get = (key) => {
-  if(!localStorage && !localStorage[key]) return null;
-
-  try {
-    const parsed = JSON.parse(localStorage[key]);
-    return parsed;
-  } catch (e) {
-    return localStorage[key];
+      delete storage[key];
+    }
   }
-}
-
-storage.remove = (key) => {
-  if(!localStorage) return null;
-
-  if(localStorage[key]) {
-    localStorage.removeItem(key);
-  }
-}
-
-export default storage;
+})();

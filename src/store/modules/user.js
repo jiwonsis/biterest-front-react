@@ -19,7 +19,7 @@ export default handleActions({
     const { payload: user } = action;
     return (
       state
-        .set('user', user)
+        .set('user', Map(user))
         .set('logged', true)
     ) 
   }
