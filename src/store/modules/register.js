@@ -58,12 +58,15 @@ export default handleActions({
     },
     onFailure: (state, action) => {
       const { status, data: { key } } = action.payload.response
-      const handler = {
-        displayName: () => {
-          return state.set('displayNameExists', false);
-        },
-        email: () => {
-          return state.set('redo', true);
+
+      const handler = (key) => {
+        switch (key) {
+          case 'displayName':
+            return state.set('displayNameExists', true);
+          case 'email':
+            return state.set('displayNameExists', false);
+          default:
+            return state;
         }
       };
 
