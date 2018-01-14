@@ -57,21 +57,18 @@ export default handleActions({
       return state.set('result', user);
     },
     onFailure: (state, action) => {
-      // const { status, data: { key } } = 
-      console.log('00000000000')
-      console.log(action.payload.response.data);
-      return state;
-      // const handler = {
-      //   displayName: () => {
-      //     return status.set('displayNameExists', false);
-      //   },
-      //   email: () => {
-      //     return status.set('redo', true);
-      //   }
-      // };
+      const { status, data: { key } } = action.payload.response
+      const handler = {
+        displayName: () => {
+          return state.set('displayNameExists', false);
+        },
+        email: () => {
+          return state.set('redo', true);
+        }
+      };
 
-      // if(status === 409 && key ) return handler(key);
-      // return state;
+      if(status === 409 && key ) return handler(key);
+      return state;
     }
   }),
   [SET_ERROR]: (state, action) => {
