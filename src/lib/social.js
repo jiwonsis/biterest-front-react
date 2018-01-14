@@ -30,19 +30,19 @@ export default(function() {
     //     )
     //   })
     // },
-    login: (type, scope) => {
+    login: (type) => {
       return new Promise((resolve, reject) => {
         // hellojs 는 일반 Promise 가 아닌 Promise A+ 를 사용하므로, Promise 로 감싸줌
         hello
           .login(type, {
-            scope: scope
+            scope: 'email'
           }).then(
             auth => resolve(auth.authResponse.access_token),
             e => reject(e)
         )
       })
     },
-    logout: (type, scope) => {
+    logout: (type) => {
       return new Promise((resolve, reject) => {
         hello
           .logout(type)

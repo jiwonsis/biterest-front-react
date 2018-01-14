@@ -13,7 +13,8 @@ const LoginModal = ({
   onChangeInput,
   onChangeMode,
   onLogin,
-  onRegister
+  onRegister,
+  onSocialLogin
 }) => {
   const isLogin = mode === 'login';
   const modeText = isLogin ? '로그인' : '회원가입';
@@ -76,7 +77,7 @@ const LoginModal = ({
           </div>
         
           <h3>소셜 계정으로 {modeText}</h3>
-          <SocialLoginButton />
+          <SocialLoginButton onSocialLogin={onSocialLogin}/>
         </div>
       </div>
     </Modal>

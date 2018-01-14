@@ -39,6 +39,18 @@ export const localLogin = ({
     )
 };
 
+export const socialLogin = ({
+  provider,
+  accessToken
+}) => {
+  let api = `/api/v1.0/auth/login/${provider}`;
+  return (
+    axios.post(api, {
+      accessToken
+    })
+  )
+};
+
 export const checkLoginStatus = () => {
   let api = '/api/v1.0/auth/check';
   return axios.get(api);
