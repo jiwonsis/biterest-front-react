@@ -39,14 +39,36 @@ class RegisterFormContainer extends Component {
 
   handleSubmit = async () => {
 
-    const { nickname, currency, optionIndex, authForm, history, RegisterActions, UserActions } = this.props;
-    const { email, password } = authForm.toJS();
+    const { socialInfo, nickname, currency, optionIndex, authForm, history, RegisterActions, UserActions } = this.props;
 
     if(nickname.length < 1) {
       RegisterActions.setError('닉네임을 입력하세요');
       return;
     }
 
+    // Social Register Process
+    if(socialInfo) {
+      const { accessToken, provider } = socialInfo.toJS();
+
+      await RegisterActions.socialRegister({
+        displayName: nickname,
+        provider,
+        accessToken,
+        initialMoney: {
+          currency,
+          index: optionIndex
+        }
+      });
+
+      const { result } = this.props;
+      UserActions.setUser(result);
+      history.push('/');
+
+      return;
+    }
+
+    // Local Register Process
+    const { email, password } = authForm.toJS();
     try {
       await RegisterActions.submit({
         displayName: nickname,
@@ -103,7 +125,8 @@ export default connect(
     optionIndex: state.register.get('optionIndex'),
     displayNameExists: state.register.get('displayNameExists'),
     error: state.register.get('error'),
-    result: state.register.get('result')
+    result: state.register.get('result'),
+    socialInfo: state.auth.get('socialInfo')
   }),
   (dispatch) => ({
     RegisterActions: bindActionCreators(registerActions, dispatch),

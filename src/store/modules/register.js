@@ -9,6 +9,7 @@ const SET_CURRENCY = 'register/SET_CURRENCY';
 const SELECT_OPTION_INDEX = 'register/SELECT_OPTION_INDEX';
 const CHECK_DISPLAY_NAME = 'register/CHECK_DISPLAY_NAME';
 const SUBMIT = 'register/SUBMIT';
+const SOCIAL_REGISTER = 'register/SOCIAL_REGISTER';
 const SET_ERROR = 'register/SET_ERROR';
 
 // action creator
@@ -17,7 +18,8 @@ export const setCurrency = createAction(SET_CURRENCY);
 export const selectOptionIndex = createAction(SELECT_OPTION_INDEX);
 export const checkDisplayName = createAction(CHECK_DISPLAY_NAME, AuthAPI.checkDisplayName);
 export const submit = createAction(SUBMIT, AuthAPI.localRegister);
-export const setError = createAction(SET_ERROR)
+export const socialRegister = createAction(SOCIAL_REGISTER, AuthAPI.socialRegister);
+export const setError = createAction(SET_ERROR);
 
 // initial state
 const initialState = Map({
@@ -64,9 +66,31 @@ export default handleActions({
           case 'displayName':
             return state.set('displayNameExists', true);
           case 'email':
-            return state.set('displayNameExists', false);
+            return state.set('redo', true);
           default:
             return state;
+        }
+      };
+
+      if(status === 409 && key ) return handler(key);
+      return state;
+    }
+  }),
+  ...pender({
+    type: SOCIAL_REGISTER,
+    onSuccess: (state, action) => {
+      const { data: user } = action.payload;
+      return state.set('result', user);
+    },
+    onFailure: (state, action) => {
+      const { status, data: { key } } = action.payload;
+
+      const handler = {
+        displayName: () => {
+          return state.set('displayNameExists', true)
+        },
+        email: () => {
+          return state.set('redo', true)
         }
       };
 

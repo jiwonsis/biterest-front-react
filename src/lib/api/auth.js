@@ -51,6 +51,22 @@ export const socialLogin = ({
   )
 };
 
+export const socialRegister = ({
+  displayName,
+  provider,
+  accessToken,
+  initialMoney: { currency, index }
+})=> {
+  let api = `/api/v1.0/auth/register/${provider}`
+  return (
+    axios.post(api, {
+      displayName,
+      accessToken,
+      initialMoney: { currency, index }
+    })
+  )
+};
+
 export const checkLoginStatus = () => {
   let api = '/api/v1.0/auth/check';
   return axios.get(api);
